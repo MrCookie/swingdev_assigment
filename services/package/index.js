@@ -1,4 +1,4 @@
-const OrderTrucksLoad = require('../../models/order/OrderTrucksLoad');
+const OrderTrucksLoad = require('../../models/TrucksLoad');
 
 module.exports = function () {
 

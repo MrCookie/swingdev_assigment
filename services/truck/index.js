@@ -1,6 +1,6 @@
 const packageService = require('../package')
 
-const OrderTrucks = require('../../models/order/OrderTrucks');
+const OrderTrucks = require('../../models/OrderTrucks');
 
 module.exports = function () {
 
@@ -55,8 +55,8 @@ module.exports = function () {
 
         // Save trucks related to order
         truckModel.save((err, saved) => {
-
             if (err) throw err;
+            
             const truckID = saved.id;
 
             truck.load.forEach(package => {

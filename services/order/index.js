@@ -1,6 +1,6 @@
 const truckService = require('../truck');
 
-const Order = require('../../models/order/Order');
+const Order = require('../../models/Order');
 
 module.exports = function () {
 
