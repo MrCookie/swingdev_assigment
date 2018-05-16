@@ -16,9 +16,9 @@ const OrderSchema = new Schema({
  */
 
 OrderSchema.virtual('trucks', {
-    ref: 'order_trucks', // The model to use
-    localField: '_id', // Find people where `localField`
-    foreignField: 'orderID', // is equal to `foreignField`
+    ref: 'order_trucks',
+    localField: '_id',
+    foreignField: 'orderID',
 });
 
 OrderSchema.path('price').required(true, 'Weight cannot be blank!');

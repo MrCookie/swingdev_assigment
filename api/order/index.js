@@ -11,8 +11,8 @@ router.post('/', function (req, res, next) {
             res.send(err);
             return;
         }
-
         orderService.saveOrder(orders);
+        
         res.send(orders);
     });
 });
