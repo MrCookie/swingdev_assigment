@@ -2,7 +2,7 @@ const packageService = require('../package')
 
 const OrderTrucks = require('../../models/order/OrderTrucks');
 
-module.exports = function() {
+module.exports = function () {
 
     // Trucks magically appear out of nowhere
     const _createTruck = () => {
@@ -21,14 +21,14 @@ module.exports = function() {
 
     const getTrucks = packages => {
 
-        if(packages.length === 0) {
+        if (packages.length === 0) {
             return {};
         }
 
         let trucks = [
-            _createTruck()
-        ],
-        truckId = 0;
+                _createTruck()
+            ],
+            truckId = 0;
 
         packages.forEach(package => {
 
@@ -36,11 +36,11 @@ module.exports = function() {
                 return package.weight + sum;
             }, 0)
 
-            if(truckLoad + package.weight > 1000) {
+            if (truckLoad + package.weight > 1000) {
                 truckId++;
                 trucks.push(_createTruck());
             }
-            
+
             _loadTruck(trucks[truckId], package);
 
         });
@@ -55,8 +55,8 @@ module.exports = function() {
 
         // Save trucks related to order
         truckModel.save((err, saved) => {
-            
-            if(err) throw err;
+
+            if (err) throw err;
             const truckID = saved.id;
 
             truck.load.forEach(package => {

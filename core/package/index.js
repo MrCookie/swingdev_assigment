@@ -1,6 +1,6 @@
 const OrderTrucksLoad = require('../../models/order/OrderTrucksLoad');
 
-module.exports = function() {
+module.exports = function () {
 
     const savePackage = (package, truck) => {
         packageModel = new OrderTrucksLoad();
@@ -9,7 +9,7 @@ module.exports = function() {
 
         // Save packages related to trucks
         packageModel.save((err, saved) => {
-            if(err) throw err;
+            if (err) throw err;
         })
     }
 

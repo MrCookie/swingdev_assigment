@@ -1,9 +1,8 @@
-
 const truckService = require('../truck');
 
 const Order = require('../../models/order/Order');
 
-module.exports = function() {
+module.exports = function () {
 
     const makeOrder = (packages, callback) => {
         let totalPrice = 0,
@@ -11,24 +10,23 @@ module.exports = function() {
 
         packages.forEach(package => {
 
-            if(package.weight > 500 ) {
+            if (package.weight > 500) {
                 error = {
                     status: 'error',
                     message: 'Max package weight exceeded'
                 }
             }
 
-            totalPrice += (package.weight > 400)
-                        ? 2 + 0.005 * package.weight
-                        : 0.01 * package.weight
+            totalPrice += (package.weight > 400) ?
+                2 + 0.005 * package.weight :
+                0.01 * package.weight
         });
 
         const trucks = truckService.getTrucks(packages);
 
-        if(error) {
+        if (error) {
             callback(error);
-        }
-        else {
+        } else {
             callback(null, {
                 price: totalPrice,
                 trucks
@@ -57,15 +55,15 @@ module.exports = function() {
 
     const getOrders = () => {
         return Order.find({})
-        .populate({
-            path: 'trucks',
-            populate: {
-                path : 'packages'
-            }
-        })
-        .catch(err => {
-            throw err;
-        })
+            .populate({
+                path: 'trucks',
+                populate: {
+                    path: 'packages'
+                }
+            })
+            .catch(err => {
+                throw err;
+            })
     }
 
     return {
