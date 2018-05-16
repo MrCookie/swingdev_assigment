@@ -2,7 +2,7 @@ const express = require('express');
 const router = express.Router();
 
 //Services
-const orderService = require('../../core/order')
+const orderService = require('../../services/order')
 
 router.post('/', function (req, res, next) {
     const packages = req.body;
