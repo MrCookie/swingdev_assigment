@@ -6,13 +6,12 @@ const orderService = require('../../core/order')
 
 router.post('/', function (req, res, next) {
     const packages = req.body;
-    const order = orderService.makeOrder(packages);
+    orderService.makeOrder(packages, (err, orders) => {
+        if(err) { res.send(err); return; }
 
-    const save = orderService.saveOrder(order);
-
-    if (save) res.send(order);
-    else res.send(save);
-
+        orderService.saveOrder(orders);
+        res.send(orders);
+    });
 });
 
 router.get('/', function (req, res, next) {

@@ -5,7 +5,7 @@ const Order = require('../../models/order/Order');
 
 module.exports = function() {
 
-    const makeOrder = packages => {
+    const makeOrder = (packages, callback) => {
         let totalPrice = 0,
             error;
 
@@ -25,11 +25,15 @@ module.exports = function() {
 
         const trucks = truckService.getTrucks(packages);
 
-        return error ? error : {
-            price: totalPrice,
-            trucks
+        if(error) {
+            callback(error);
         }
-
+        else {
+            callback(null, {
+                price: totalPrice,
+                trucks
+            })
+        }
     }
 
     const saveOrder = orderDetails => {
