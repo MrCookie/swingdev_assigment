@@ -11,6 +11,7 @@ router.post('/', function (req, res, next) {
             res.send(err);
             return;
         }
+        // Async save to DB
         orderService.saveOrder(orders);
         
         res.send(orders);

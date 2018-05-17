@@ -49,6 +49,7 @@ module.exports = function () {
     }
 
     const saveTruck = (truck, order) => {
+        const errors = [];
         const truckModel = new OrderTrucks();
         truckModel.truckID = truck.truckID;
         truckModel.orderID = order;
@@ -56,7 +57,7 @@ module.exports = function () {
         // Save trucks related to order
         truckModel.save((err, saved) => {
             if (err) throw err;
-            
+
             const truckID = saved.id;
 
             truck.load.forEach(package => {

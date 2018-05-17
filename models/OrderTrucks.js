@@ -3,7 +3,7 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
 /**
- * Package Schema
+ * OrderTrucks Schema
  */
 
 const OrderTrucksSchema = new Schema({

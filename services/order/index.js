@@ -4,17 +4,41 @@ const Order = require('../../models/Order');
 
 module.exports = function () {
 
+    const _validate = package => {
+        const errors = {
+            max_weight: 'Max package weight exceeded',
+            no_id: 'No id found',
+            no_weight: 'No weight found'
+        }
+        let error = {
+            status: 'error',
+            message: null
+        }
+
+        if (!package.hasOwnProperty('id')) {
+            error.message = errors.no_id;
+            return error;
+        }
+        if (!package.hasOwnProperty('weight')) {
+            error.message = errors.no_weight;
+            return error;
+        }
+        if (package.weight > 500) {
+            error.message = errors.max_weight;
+            return error;
+        }
+        return true;
+    }
+
     const makeOrder = (packages, callback) => {
         let totalPrice = 0,
             error;
 
         packages.forEach(package => {
 
-            if (package.weight > 500) {
-                error = {
-                    status: 'error',
-                    message: 'Max package weight exceeded'
-                }
+            const valid = _validate(package);
+            if (valid.status === 'error') {
+                error = valid;
             }
 
             totalPrice += (package.weight > 400) ?
@@ -34,23 +58,21 @@ module.exports = function () {
         }
     }
 
-    const saveOrder = orderDetails => {
+    const saveOrder = (orderDetails, callback) => {
 
         const order = new Order();
         order.price = orderDetails.price;
 
         // Save order
         order.save((err, saved) => {
-            if (err) return err;
+            if (err) throw err;
 
             const orderID = saved.id;
 
             orderDetails.trucks.forEach(truck => {
-                truckService.saveTruck(truck, orderID);
+                truckService.saveTruck(truck, orderID)
             })
         })
-
-        return true;
     }
 
     const getOrders = () => {
