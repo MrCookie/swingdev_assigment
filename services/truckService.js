@@ -14,10 +14,12 @@ module.exports = function () {
     }
 
     const _loadTruck = (truck, package) => {
-        truck.load.push({
+        let loadedTruck = truck;
+        loadedTruck.load.push({
             id: package.id,
             weight: package.weight
         })
+        return loadedTruck;
     }
 
     const getTrucks = packages => {
@@ -42,7 +44,7 @@ module.exports = function () {
                 trucks.push(_createTruck());
             }
 
-            _loadTruck(trucks[truckId], package);
+            trucks[truckId] = _loadTruck(trucks[truckId], package);
 
         });
 
