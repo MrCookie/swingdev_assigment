@@ -12,7 +12,7 @@ const TruckSchema = new Schema({
     ]
 }, { toJSON: {virtuals : true} });
 
-OrderTrucksSchema.virtual('packages', {
+TruckSchema.virtual('packages', {
     ref: 'packages',
     localField: '_id',
     foreignField: 'truckID',
