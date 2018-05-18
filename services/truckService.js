@@ -1,13 +1,14 @@
+const crypto = require("crypto");
+
 const packageService = require('../package')
 
-const OrderTrucks = require('../../models/OrderTrucks');
+const TruckModel = require('../models/Truck');
 
 module.exports = function () {
 
     // Trucks magically appear out of nowhere
     const _createTruck = () => {
         return {
-            truckID: Math.random().toString(36).substr(2, 16),
             load: []
         }
     }
@@ -49,21 +50,16 @@ module.exports = function () {
     }
 
     const saveTruck = (truck, order) => {
-        const errors = [];
-        const truckModel = new OrderTrucks();
-        truckModel.truckID = truck.truckID;
+        const truckModel = new TruckModel();
         truckModel.orderID = order;
 
-        // Save trucks related to order
-        truckModel.save((err, saved) => {
-            if (err) throw err;
-
-            const truckID = saved.id;
-
-            truck.load.forEach(package => {
-                packageService.savePackage(package, truckID);
+        return truckModel.save()
+            .then(savedTruck => {
+                return {
+                    truckID: savedTruck.id,
+                    load: truck.load
+                };
             })
-        })
     }
 
     return {

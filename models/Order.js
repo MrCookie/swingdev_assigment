@@ -16,7 +16,7 @@ const OrderSchema = new Schema({
  */
 
 OrderSchema.virtual('trucks', {
-    ref: 'order_trucks',
+    ref: 'trucks',
     localField: '_id',
     foreignField: 'orderID',
 });

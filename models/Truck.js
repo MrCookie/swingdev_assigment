@@ -6,15 +6,14 @@ const Schema = mongoose.Schema;
  * OrderTrucks Schema
  */
 
-const OrderTrucksSchema = new Schema({
-    truckID: String,
+const TruckSchema = new Schema({
     orderID: [
         {type: Schema.Types.ObjectId, ref: 'order'}
     ]
 }, { toJSON: {virtuals : true} });
 
 OrderTrucksSchema.virtual('packages', {
-    ref: 'order_trucks_load',
+    ref: 'packages',
     localField: '_id',
     foreignField: 'truckID',
 });
@@ -23,7 +22,6 @@ OrderTrucksSchema.virtual('packages', {
  * Validations
  */
 
-OrderTrucksSchema.path('truckID').required(true, 'Weight cannot be blank!');
-OrderTrucksSchema.path('orderID').required(true, 'orderID cannot /be blank!');
+TruckSchema.path('orderID').required(true, 'orderID cannot be blank!');
 
-module.exports = mongoose.model('order_trucks', OrderTrucksSchema);
+module.exports = mongoose.model('trucks', TruckSchema);
