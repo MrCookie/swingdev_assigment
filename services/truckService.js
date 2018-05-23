@@ -6,6 +6,8 @@ const TruckModel = require('../models/Truck');
 
 module.exports = function () {
 
+    const MAX_TRUCK_LOAD = 1000;
+
     // Trucks magically appear out of nowhere
     const _createTruck = () => {
         return {
@@ -39,7 +41,7 @@ module.exports = function () {
                 return package.weight + sum;
             }, 0)
 
-            if (truckLoad + package.weight > 1000) {
+            if (truckLoad + package.weight > MAX_TRUCK_LOAD) {
                 truckId++;
                 trucks.push(_createTruck());
             }
