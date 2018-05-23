@@ -65,10 +65,7 @@ module.exports = function () {
         const order = new OrderModel();
         order.price = orderDetails.price;
 
-        return order.save()
-            .catch(err => {
-                res.send(err);
-            });
+        return order.save();
     }
 
     const getOrders = () => {
