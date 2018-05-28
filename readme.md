@@ -4,6 +4,6 @@ Endpoints:
 
 POST /api/order - create order
 
-GET /api/order  - get previous orders
+GET /api/order/history  - get previous orders
 
 /prices - prices.pdf

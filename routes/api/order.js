@@ -2,9 +2,9 @@ const express = require('express');
 const router = express.Router();
 
 //Services
-const orderService = require('../services/orderService')
-const truckService = require('../services/truckService');
-const packageService = require('../services/packageService');
+const orderService = require('../../services/orderService')
+const truckService = require('../../services/truckService');
+const packageService = require('../../services/packageService');
 
 router.post('/', function (req, res, next) {
     const packages = req.body;
@@ -50,7 +50,7 @@ router.post('/', function (req, res, next) {
 });
 
 
-router.get('/', function (req, res, next) {
+router.get('/history', function (req, res, next) {
     orderService.getOrders()
         .then(orders => {
             res.send(orders);
