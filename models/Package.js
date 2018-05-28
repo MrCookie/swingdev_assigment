@@ -7,7 +7,7 @@ const Schema = mongoose.Schema;
  */
 
 const PackageSchema = new Schema({
-    weight: String,
+    weight: Number,
     packageID: String,
     truckID: [
         {type: Schema.Types.ObjectId, ref: 'trucks'}

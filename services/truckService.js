@@ -29,13 +29,17 @@ module.exports = function () {
         if (packages.length === 0) {
             return {};
         }
-
+        
+        const sortedPackages = packages.sort((a, b) => {
+            return a.weight - b.weight;
+        });
+        
         let trucks = [
                 _createTruck()
             ],
             truckId = 0;
 
-        packages.forEach(package => {
+        sortedPackages.forEach(package => {
 
             const truckLoad = trucks[truckId].load.reduce((sum, package) => {
                 return package.weight + sum;
