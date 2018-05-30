@@ -10,7 +10,12 @@ router.post('/', function (req, res, next) {
     const packages = req.body;
 
     if(!packages || Object.keys(packages).length === 0) {
-        res.status(400).send('No packages found!');
+        res.status(400).send({
+            status: "error",
+            messages: [
+                "No packages found!"
+            ]
+        });
         return;
     }
 
