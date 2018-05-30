@@ -14,8 +14,10 @@ const TruckSchema = new Schema({
 
 TruckSchema.virtual('packages', {
     ref: 'packages',
-    localField: '_id',
+    localField: 'id',
     foreignField: 'truckID',
+}).get(function() {
+    return this.packageID + ' ' + this.weight;
 });
 
 /**

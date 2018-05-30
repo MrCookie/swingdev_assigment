@@ -8,12 +8,16 @@ const packageService = require('../../services/packageService');
 
 router.post('/', function (req, res, next) {
     const packages = req.body;
+
+    if(!packages || Object.keys(packages).length === 0) {
+        res.status(400).send('No packages found!');
+        return;
+    }
+
     let finalOrder = {};
     orderService.makeOrder(packages)
         .then(order => {
-
             finalOrder = order;
-
             return orderService.saveOrder(order)
         })
         .then(savedOrder => {
@@ -51,7 +55,8 @@ router.post('/', function (req, res, next) {
 
 
 router.get('/history', function (req, res, next) {
-    orderService.getOrders()
+    const { offset, limit } = req.query;
+    orderService.getOrders(parseInt(offset), parseInt(limit))
         .then(orders => {
             res.send(orders);
         })

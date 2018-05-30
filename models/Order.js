@@ -19,6 +19,8 @@ OrderSchema.virtual('trucks', {
     ref: 'trucks',
     localField: '_id',
     foreignField: 'orderID',
+}).get(function() {
+    return this.truckID + ' ' + this.packages;
 });
 
 OrderSchema.path('price').required(true, 'Weight cannot be blank!');

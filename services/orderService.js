@@ -37,6 +37,11 @@ module.exports = function () {
                     messages: []
                 };
 
+            if(!packages.length) {
+                error.messages = "No packages found!";
+                return error;
+            }
+
             packages.forEach(package => {
 
                 const valid = _validate(package);
@@ -68,12 +73,20 @@ module.exports = function () {
         return order.save();
     }
 
-    const getOrders = () => {
+    const getOrders = (offset = 0, limit = 20) => {
+
+        if (limit > 100) limit = 100;
+
         return OrderModel.find({})
+            .skip(offset)
+            .limit(limit)
             .populate({
                 path: 'trucks',
+                select: 'truckID packages',
                 populate: {
-                    path: 'packages'
+                    path: 'packages',
+                    model: 'packages',
+                    select: 'packageID weight',
                 }
             })
     }
